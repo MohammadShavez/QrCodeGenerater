@@ -1,0 +1,80 @@
+<?php
+// Include the QrCode.php file
+include "QrCode.php";
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve the input message from the form
+    $text = $_POST['message'];
+    
+    // Create an instance of the QRCODE class
+    $qc = new QRCODE();
+    
+    // Set the text for the QR code
+    $qc->TEXT($text);
+    
+    // Generate the QR Code
+    $qc->QRCODE(200, "QrCode/" . qr. ".png");
+    // $qc->QRCODE(200, "QrCode/" . date('Y-m-d_h.i.s') . ".png");
+
+    // Display the message
+    // echo "<p>Your message is: " . htmlspecialchars($text) . "</p>";
+
+    // Display the QR code image
+    // echo '<img src="QrCode/' . date('Y-m-d_h.i.s') . '.png" alt="QR Code">';
+   
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+</head>
+<body>
+<div class="box">
+<h2>Enter Your Message</h2>
+
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message"><br><br>
+    <input type="submit" value="Submit" name ="submit">
+</form>
+</div>
+<div class="img">
+    
+    
+    <?php 
+        echo '<img src="QrCode/' . 'qr' . '.png" alt="QR Code">';
+    // echo '<img src="QrCode/' . date('Y-m-d_h.i.s') . '.png" alt="QR Code">';
+
+    ?>
+</div>
+</body>
+</html>
+
+
+<style>
+    .box{
+        margin: 10px auto;
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+}
+.img{
+    height:200px;
+    width:200px;
+    border:2px solid red;
+    margin:auto;
+}
+    }
+</style>
+
+
+<?php
+if(isset($_POST['submit'])){
+    header("Location: http://localhost/college/qr%20code/index.php");
+}
+?>
